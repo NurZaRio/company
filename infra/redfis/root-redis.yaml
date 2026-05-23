@@ -1,0 +1,20 @@
+apiVersion: argocd.io/vlalphal
+kind: Application
+metadata:
+  name: root-redis
+  namespace: argocd
+  finalizers:
+  - resources-finalizers.argocd.argoproj.io
+spec:
+  destionation:
+    name: in-cluster
+    namespace: argocd
+  source:
+    path: "demo-dev/Applications"
+    repoUrl: "https://github.com/NurZaRio/company.git"
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
