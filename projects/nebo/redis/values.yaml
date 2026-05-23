@@ -1,0 +1,10 @@
+auth:
+  enabled: true
+  password: "nebo-redis-pass"
+master:
+  service:
+    type: NodePort
+    nodePorts:
+      redis: 30701
+persistence:
+  enabled: false
