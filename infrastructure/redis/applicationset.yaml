@@ -1,23 +1,39 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
+
 metadata:
-  name: redis-infra
+  name: redis-applications
   namespace: argocd
+
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/NurZaRio/company.git
-    targetRevision: main
-    path: projects
-    directory:
-      recurse: true
-      include: '{nebo/redis,programmatic/redis}'
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: redis
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+  generators:
+    - git:
+        repoURL: https://github.com/YOUR_ORG/company-main.git
+        revision: main
+
+        directories:
+          - path: projects/*/redis/*
+
+  template:
+    metadata:
+      name: '{{path[1]}}-redis-{{path.basename}}'
+
+    spec:
+      project: default
+
+      source:
+        repoURL: https://github.com/YOUR_ORG/company-main.git
+        targetRevision: main
+        path: '{{path}}'
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path[1]}}-redis-{{path.basename}}'
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+
+        syncOptions:
+          - CreateNamespace=true
