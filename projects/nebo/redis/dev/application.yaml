@@ -3,6 +3,7 @@ kind: Application
 
 metadata:
   name: nebo-redis-dev
+  namespace: argocd
 
 spec:
   project: default
@@ -13,8 +14,16 @@ spec:
     targetRevision: 20.6.3
 
     helm:
-      valueFiles:
-        - values.yaml
+      values: |
+        architecture: standalone
+
+        auth:
+          enabled: true
+          password: dev-password
+
+        master:
+          persistence:
+            enabled: false
 
   destination:
     server: https://kubernetes.default.svc
