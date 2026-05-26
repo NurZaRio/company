@@ -8,7 +8,7 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/YOUR_ORG/company-main.git
+        repoURL: https://github.com/NurZaRio/company.git
         revision: main
 
         directories:
@@ -22,7 +22,7 @@ spec:
       project: default
 
       source:
-        repoURL: https://github.com/YOUR_ORG/company-main.git
+        repoURL: https://github.com/NurZaRio/company.git
         targetRevision: main
         path: '{{path}}'
 
