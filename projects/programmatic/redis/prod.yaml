@@ -1,0 +1,15 @@
+auth:
+  password: programmatic-prod-password
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+
+  limits:
+    cpu: "1"
+    memory: 1Gi
+
+persistence:
+  enabled: true
+  size: 20Gi

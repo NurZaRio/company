@@ -1,0 +1,26 @@
+image:
+  repository: redis
+  tag: "7.2"
+
+service:
+  port: 6379
+
+auth:
+  enabled: true
+  password: changeme
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+persistence:
+  enabled: true
+  size: 5Gi
+  storageClass: ""
+
+replicaCount: 1
