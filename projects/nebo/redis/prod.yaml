@@ -1,19 +1,5 @@
-replicaCount: 2
-
-sentinel:
-  quorum: 1
-
 auth:
   password: nebo-prod-password
-
-resources:
-  requests:
-    cpu: 200m
-    memory: 256Mi
-
-  limits:
-    cpu: 500m
-    memory: 512Mi
 
 persistence:
   enabled: true
