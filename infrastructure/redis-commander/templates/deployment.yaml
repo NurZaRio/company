@@ -30,7 +30,4 @@ spec:
 
           env:
             - name: REDIS_HOSTS
-              value: |-
-                {{- range $i, $conn := .Values.redisConnections }}
-                {{- if $i }},{{ end }}{{ $conn.host }}:{{ $conn.port }}:{{ $conn.name }}:{{ $conn.password }}
-                {{- end }}
+              value: '{{- range $i, $conn := .Values.redisConnections }}{{- if $i }},{{ end }}{{ $conn.host }}:{{ $conn.port }}:{{ $conn.name }}:{{ $conn.password }}{{- end }}'
