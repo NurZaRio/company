@@ -36,6 +36,7 @@ metadata:
   name: redis-sentinel
 
 spec:
+  type: NodePort
   selector:
     app: redis
 
@@ -43,3 +44,6 @@ spec:
     - name: sentinel
       port: {{ .Values.sentinel.port }}
       targetPort: sentinel
+      {{- if .Values.sentinel.nodePort }}
+      nodePort: {{ .Values.sentinel.nodePort }}
+      {{- end }}
