@@ -1,0 +1,5 @@
+auth:
+  password: programmatic-stage-password
+
+persistence:
+  enabled: true

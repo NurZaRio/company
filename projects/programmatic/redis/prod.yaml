@@ -1,6 +1,0 @@
-auth:
-  password: programmatic-prod-password
-
-persistence:
-  enabled: true
-  size: 5Gi

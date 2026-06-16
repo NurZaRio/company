@@ -12,15 +12,15 @@ redisConnections:
     host: redis.nebo-redis-dev.svc.cluster.local
     port: 6379
     password: nebo-dev-password
-  - name: nebo-prod
-    host: redis.nebo-redis-prod.svc.cluster.local
+  - name: nebo-stage
+    host: redis.nebo-redis-stage.svc.cluster.local
     port: 6379
-    password: nebo-prod-password
+    password: nebo-stage-password
   - name: programmatic-dev
     host: redis.programmatic-redis-dev.svc.cluster.local
     port: 6379
     password: programmatic-dev-password
-  - name: programmatic-prod
-    host: redis.programmatic-redis-prod.svc.cluster.local
+  - name: programmatic-stage
+    host: redis.programmatic-redis-stage.svc.cluster.local
     port: 6379
-    password: programmatic-prod-password
+    password: programmatic-stage-password

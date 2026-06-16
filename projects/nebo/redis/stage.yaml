@@ -1,5 +1,5 @@
 auth:
-  password: nebo-dev-password
+  password: nebo-stage-password
 
 persistence:
   enabled: true

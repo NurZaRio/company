@@ -27,7 +27,7 @@ resources:
 
 persistence:
   enabled: true
-  size: 5Gi
+  size: 500Mi
   storageClass: ""
 
 replicaCount: 3

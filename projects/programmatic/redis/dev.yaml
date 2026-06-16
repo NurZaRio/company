@@ -2,4 +2,4 @@ auth:
   password: programmatic-dev-password
 
 persistence:
-  enabled: false
+  enabled: true
