@@ -14,7 +14,7 @@ kube-prometheus-stack:
     persistence:
       enabled: true
       size: 1Gi
-      storageClassName: ""
+      storageClassName: local-path
 
     ingress:
       enabled: false
@@ -39,7 +39,7 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 10Gi
-            storageClassName: ""
+            storageClassName: local-path
 
   alertmanager:
     enabled: false
