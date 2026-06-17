@@ -1,6 +1,3 @@
-auth:
-  # password: nebo-stage-password
-
 persistence:
   enabled: true
 

@@ -1,6 +1,3 @@
-auth:
-  # password: programmatic-dev-password
-
 persistence:
   enabled: true
 

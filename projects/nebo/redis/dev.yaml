@@ -1,6 +1,3 @@
-auth:
-  # password: nebo-dev-password
-
 persistence:
   enabled: true
 
