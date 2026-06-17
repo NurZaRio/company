@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: grafana-dashboard-redis
+  labels:
+    grafana_dashboard: "1"
+
+data:
+  redis-dashboard.json: |
+    {
+      "title": "Redis Dashboard",
+      "uid": "redis-dashboard",
+      "schemaVersion": 27,
+      "version": 1,
+      "panels": []
+    }

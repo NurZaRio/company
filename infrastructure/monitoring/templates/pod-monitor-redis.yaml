@@ -1,0 +1,41 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+
+metadata:
+  name: redis
+  labels:
+    release: monitoring
+
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: redis
+
+  namespaceSelector:
+    any: true
+
+  podMetricsEndpoints:
+    - port: redis-exporter
+      interval: 15s
+      path: /metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+
+metadata:
+  name: redis-sentinel
+  labels:
+    release: monitoring
+
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: sentinel
+
+  namespaceSelector:
+    any: true
+
+  podMetricsEndpoints:
+    - port: sentinel-exporter
+      interval: 15s
+      path: /metrics

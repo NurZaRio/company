@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+
+metadata:
+  name: monitoring
+  namespace: argocd
+
+spec:
+  goTemplate: true
+
+  generators:
+    - list:
+        elements:
+          - name: monitoring
+            namespace: monitoring
+
+  template:
+    metadata:
+      name: '{{ .name }}'
+
+    spec:
+      project: default
+
+      source:
+        repoURL: https://github.com/NurZaRio/company.git
+        targetRevision: main
+        path: infrastructure/monitoring
+        helm:
+          valueFiles:
+            - values.yaml
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ .namespace }}'
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+
+        syncOptions:
+          - CreateNamespace=true

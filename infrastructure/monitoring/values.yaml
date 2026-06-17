@@ -1,0 +1,59 @@
+grafana:
+  enabled: true
+  adminPassword: admin
+
+  service:
+    type: NodePort
+    port: 3000
+    nodePort: 30030
+
+  persistence:
+    enabled: true
+    size: 1Gi
+    storageClassName: ""
+
+  ingress:
+    enabled: false
+
+prometheus:
+  prometheusSpec:
+    retention: 7d
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 1Gi
+
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
+          storageClassName: ""
+
+alertmanager:
+  enabled: false
+
+defaultRules:
+  create: false
+
+kubeControllerManager:
+  enabled: false
+kubeEtcd:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+kubelet:
+  enabled: true
+kubeStateMetrics:
+  enabled: true
+nodeExporter:
+  enabled: true
