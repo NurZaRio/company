@@ -1,5 +1,5 @@
 auth:
-  password: programmatic-dev-password
+  # password: programmatic-dev-password
 
 persistence:
   enabled: true

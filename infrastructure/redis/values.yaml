@@ -7,7 +7,7 @@ service:
 
 auth:
   enabled: true
-  password: changeme
+  # password: auto-generated
 
 replicaCount: 3
 
