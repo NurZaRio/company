@@ -6,8 +6,7 @@ metadata:
 
 spec:
   selector:
-    redis-failover: redis
-    role: redis
+    app.kubernetes.io/component: redis
 
   ports:
     - name: redis
@@ -24,8 +23,7 @@ spec:
   type: NodePort
 
   selector:
-    redis-failover: redis
-    role: sentinel
+    app.kubernetes.io/component: sentinel
 
   ports:
     - name: sentinel
