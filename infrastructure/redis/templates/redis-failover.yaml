@@ -22,6 +22,8 @@ spec:
     {{- if .Values.persistence.enabled }}
     storage:
       persistentVolumeClaim:
+        metadata:
+          name: redis-data
         spec:
           accessModes:
             - ReadWriteOnce
