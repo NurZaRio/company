@@ -1,5 +1,0 @@
-auth:
-  # password: ro-dev-password
-
-sentinel:
-  nodePort: 30087
