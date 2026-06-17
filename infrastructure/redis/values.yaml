@@ -5,29 +5,35 @@ image:
 service:
   port: 6379
 
-sentinel:
-  port: 26379
-  quorum: 2
-  downAfterMilliseconds: 5000
-  failoverTimeout: 10000
-  parallelSyncs: 1
-
 auth:
   enabled: true
   password: changeme
 
-resources:
-  requests:
-    cpu: 25m
-    memory: 64Mi
+replicaCount: 3
 
-  limits:
-    cpu: 200m
-    memory: 256Mi
+redis:
+  resources:
+    requests:
+      cpu: 25m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+  customConfig:
+    - min-replicas-to-write 2
+
+sentinel:
+  replicas: 3
+  resources:
+    requests:
+      cpu: 25m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+  customConfig: []
 
 persistence:
   enabled: true
   size: 500Mi
   storageClass: ""
-
-replicaCount: 3

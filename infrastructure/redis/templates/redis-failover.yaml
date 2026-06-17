@@ -1,0 +1,88 @@
+apiVersion: databases.spotahome.com/v1
+kind: RedisFailover
+
+metadata:
+  name: redis
+
+spec:
+{{- if .Values.auth.enabled }}
+  auth:
+    secretPath: "redis-auth/password"
+{{- end }}
+
+  redis:
+    replicas: {{ .Values.replicaCount }}
+
+    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+
+    imagePullPolicy: IfNotPresent
+
+    port: {{ .Values.service.port }}
+
+    {{- if .Values.persistence.enabled }}
+    storage:
+      persistentVolumeClaim:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: {{ .Values.persistence.size }}
+      {{- if .Values.persistence.storageClass }}
+          storageClassName: {{ .Values.persistence.storageClass }}
+      {{- end }}
+    {{- else }}
+    storage:
+      emptyDir: {}
+    {{- end }}
+
+    resources:
+{{ toYaml .Values.redis.resources | indent 6 }}
+
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: DoesNotExist
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  redis-failover: redis
+              topologyKey: kubernetes.io/hostname
+
+    {{- if .Values.redis.customConfig }}
+    customConfig:
+{{ toYaml .Values.redis.customConfig | indent 6 }}
+    {{- end }}
+
+  sentinel:
+    replicas: {{ .Values.sentinel.replicas | default .Values.replicaCount }}
+
+    resources:
+{{ toYaml .Values.sentinel.resources | indent 6 }}
+
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: DoesNotExist
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  redis-failover: redis
+              topologyKey: kubernetes.io/hostname
+
+    {{- if .Values.sentinel.customConfig }}
+    customConfig:
+{{ toYaml .Values.sentinel.customConfig | indent 6 }}
+    {{- end }}

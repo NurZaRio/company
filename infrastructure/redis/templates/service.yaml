@@ -6,23 +6,8 @@ metadata:
 
 spec:
   selector:
-    app: redis
-
-  ports:
-    - name: redis
-      port: {{ .Values.service.port }}
-      targetPort: redis
----
-apiVersion: v1
-kind: Service
-
-metadata:
-  name: redis-headless
-
-spec:
-  clusterIP: None
-  selector:
-    app: redis
+    redis-failover: redis
+    role: redis
 
   ports:
     - name: redis
@@ -37,12 +22,14 @@ metadata:
 
 spec:
   type: NodePort
+
   selector:
-    app: redis
+    redis-failover: redis
+    role: sentinel
 
   ports:
     - name: sentinel
-      port: {{ .Values.sentinel.port }}
+      port: 26379
       targetPort: sentinel
       {{- if .Values.sentinel.nodePort }}
       nodePort: {{ .Values.sentinel.nodePort }}
